@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // API configuration
-    const apiKey = '914a387cc9cd8b68f264f2449551e098'; // Replace with your actual API key
+    const apiKey = 'dab09b6a8c6783e9ee39d9af2900f195'; // Replace with your actual API key
     let currentUnit = 'metric'; // Default to Celsius
     
     // DOM elements
@@ -25,7 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
     fahrenheitBtn.addEventListener('click', () => toggleUnits('imperial'));
     
     // Initial load with default location (London)
-    fetchWeather('London');
+document.addEventListener('DOMContentLoaded', function() {
+    // ... other code ...
+    
+    // Show loading state immediately
+    currentWeatherContainer.innerHTML = '<div class="loading">Loading weather data...</div>';
+    forecastContainer.innerHTML = '<div class="loading">Loading forecast...</div>';
+    
+    // Then fetch weather
+    setTimeout(() => fetchWeather('London'), 500);
+});
     
     // Functions
     function searchWeather() {
@@ -245,35 +254,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showError(message) {
-        currentWeatherContainer.innerHTML = `<div class="error-message">${message}</div>`;
-        forecastContainer.innerHTML = '';
-        alertsContainer.innerHTML = '';
-    }
+    currentWeatherContainer.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${message}</p>
+            <p>Please try another location or check your spelling.</p>
+        </div>
+    `;
+    forecastContainer.innerHTML = '';
+    alertsContainer.innerHTML = '';
+        }
     
     function getWeatherIcon(weatherCode) {
-        // Map weather codes to Font Awesome icons
-        if (weatherCode >= 200 && weatherCode < 300) {
-            return '<i class="fas fa-bolt"></i>'; // Thunderstorm
-        } else if (weatherCode >= 300 && weatherCode < 400) {
-            return '<i class="fas fa-cloud-rain"></i>'; // Drizzle
-        } else if (weatherCode >= 500 && weatherCode < 600) {
-            return '<i class="fas fa-umbrella"></i>'; // Rain
-        } else if (weatherCode >= 600 && weatherCode < 700) {
-            return '<i class="fas fa-snowflake"></i>'; // Snow
-        } else if (weatherCode >= 700 && weatherCode < 800) {
-            return '<i class="fas fa-smog"></i>'; // Atmosphere (fog, haze, etc.)
-        } else if (weatherCode === 800) {
-            return '<i class="fas fa-sun"></i>'; // Clear
-        } else if (weatherCode > 800) {
-            return '<i class="fas fa-cloud"></i>'; // Clouds
-        } else {
-            return '<i class="fas fa-question"></i>'; // Unknown
-        }
+    // Clear
+    if (weatherCode === 800) {
+        return '<i class="fas fa-sun"></i>';
     }
+    // Clouds
+    if (weatherCode === 801) return '<i class="fas fa-cloud-sun"></i>';
+    if (weatherCode > 801) return '<i class="fas fa-cloud"></i>';
+    // Rain
+    if (weatherCode >= 500 && weatherCode < 600) {
+        if (weatherCode < 520) return '<i class="fas fa-cloud-rain"></i>';
+        return '<i class="fas fa-umbrella"></i>';
+    }
+    // Thunderstorm
+    if (weatherCode >= 200 && weatherCode < 300) {
+        return '<i class="fas fa-bolt"></i>';
+    }
+    // Snow
+    if (weatherCode >= 600 && weatherCode < 700) {
+        return '<i class="far fa-snowflake"></i>';
+    }
+    // Atmosphere
+    if (weatherCode >= 700 && weatherCode < 800) {
+        if (weatherCode === 741) return '<i class="fas fa-fog"></i>';
+        return '<i class="fas fa-smog"></i>';
+    }
+    // Default
+    return '<i class="fas fa-cloud"></i>';
+}
     
     function getWindDirection(degrees) {
         const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
         const index = Math.round((degrees % 360) / 45) % 8;
         return directions[index];
     }
+});
+
+// Save location
+localStorage.setItem('lastLocation', location);
+
+// On load
+const lastLocation = localStorage.getItem('lastLocation');
+if (lastLocation) {
+    searchInput.value = lastLocation;
+    fetchWeather(lastLocation);
+} else {
+    fetchWeather('London');
+}
+
+document.getElementById('refresh-btn').addEventListener('click', () => {
+    const location = searchInput.value.trim() || 'London';
+    fetchWeather(location);
 });
