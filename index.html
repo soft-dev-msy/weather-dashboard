@@ -1,0 +1,55 @@
+<!DOCT<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Dashboard</h1>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Enter city name or zip code">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+                <button id="location-btn" title="Use my location"><i class="fas fa-location-arrow"></i></button>
+                <div class="unit-toggle">
+                    <button id="celsius-btn" class="active">°C</button>
+                    <button id="fahrenheit-btn">°F</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="current-weather">
+                <h2>Current Weather</h2>
+                <div class="weather-card" id="current-weather">
+                    <div class="loading">Loading current weather...</div>
+                </div>
+            </section>
+
+            <section class="weather-alerts">
+                <h2>Weather Alerts</h2>
+                <div id="alerts-container">
+                    <div class="no-alerts">No current weather alerts</div>
+                </div>
+            </section>
+
+            <section class="forecast">
+                <h2>5-Day Forecast</h2>
+                <div class="forecast-container" id="forecast-container">
+                    <div class="loading">Loading forecast...</div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by OpenWeatherMap</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
