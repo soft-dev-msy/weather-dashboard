@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // API configuration
-    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your actual API key
+    const apiKey = 'dab09b6a8c6783e9ee39d9af2900f195'; // Replace with your actual API key
     let currentUnit = 'metric'; // Default to Celsius
     
     // DOM elements
