@@ -1,20 +1,25 @@
-<!DOCT<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
+    <title>Weather Dashboard Pro</title>
+    <meta name="description" content="Beautiful weather dashboard with real-time forecasts and alerts">
+    <meta name="theme-color" content="#3498db">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌦️</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Weather Dashboard</h1>
+            <h1><i class="fas fa-cloud-sun"></i> Weather Dashboard Pro</h1>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Enter city name or zip code">
                 <button id="search-btn"><i class="fas fa-search"></i></button>
                 <button id="location-btn" title="Use my location"><i class="fas fa-location-arrow"></i></button>
+                <button id="refresh-btn" title="Refresh"><i class="fas fa-sync-alt"></i></button>
                 <div class="unit-toggle">
                     <button id="celsius-btn" class="active">°C</button>
                     <button id="fahrenheit-btn">°F</button>
@@ -24,34 +29,42 @@
 
         <main>
             <section class="current-weather">
-                <h2>Current Weather</h2>
+                <h2><i class="fas fa-cloud-sun-rain"></i> Current Weather</h2>
                 <div class="weather-card" id="current-weather">
-                    <div class="loading">Loading current weather...</div>
+                    <div class="skeleton-loading">
+                        <div class="skeleton-line" style="width: 70%"></div>
+                        <div class="skeleton-line" style="width: 50%"></div>
+                        <div class="skeleton-icon"></div>
+                        <div class="skeleton-line" style="width: 60%"></div>
+                    </div>
                 </div>
             </section>
 
             <section class="weather-alerts">
-                <h2>Weather Alerts</h2>
+                <h2><i class="fas fa-exclamation-triangle"></i> Weather Alerts</h2>
                 <div id="alerts-container">
                     <div class="no-alerts">No current weather alerts</div>
                 </div>
             </section>
 
             <section class="forecast">
-                <h2>5-Day Forecast</h2>
+                <h2><i class="fas fa-calendar-week"></i> 5-Day Forecast</h2>
                 <div class="forecast-container" id="forecast-container">
-                    <div class="loading">Loading forecast...</div>
+                    <div class="skeleton-loading">
+                        <div class="skeleton-line" style="width: 80%"></div>
+                        <div class="skeleton-icon"></div>
+                        <div class="skeleton-line" style="width: 60%"></div>
+                        <div class="skeleton-line" style="width: 50%"></div>
+                    </div>
                 </div>
             </section>
-
-            <button id="refresh-btn" title="Refresh"><i class="fas fa-sync-alt"></i></button>
         </main>
 
         <footer>
-            <p>Powered by OpenWeatherMap</p>
+            <p>Powered by OpenWeatherMap • <span id="last-updated"></span></p>
         </footer>
     </div>
 
     <script src="script.js"></script>
 </body>
-</html>
+        </html>
